@@ -1,0 +1,21 @@
+h1 {
+  font-size: 20px;
+  font-weight: 400;
+  background-color: aquamarine;
+}
+
+.bk-img {
+  width: 100px;
+  height: 100px;
+  border: 1px solid palevioletred;
+  background: url("./assert/image/fail.png") no-repeat center;
+}
+
+:fullscreen {
+  background-color: blueviolet;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
