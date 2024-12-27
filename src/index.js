@@ -1,12 +1,11 @@
 // import fail from "./assert/image/fail.png";
 import "./index.css";
-import txt from "./test.txt";
 // import "./index.less";
 // import "./index.scss";
 
 // console.log(fail);
 
-console.log(txt);
+console.log("new text xxxxxxxxxxxxxxxxx");
 
 class TestCls {
   name = "test_name";

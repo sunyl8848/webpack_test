@@ -3,13 +3,14 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+//const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const MyPlugin = require("./MyPlugin");
 const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
   mode: "development",
-  entry: { index: "./src/index.js", testA: "./src/testA.js", testB: "./src/testB.js" },
+  entry: { index: "./src/index.js" },
   devServer: {
     port: 8888,
     hot: true,
@@ -29,29 +30,29 @@ module.exports = {
       new CssMinimizerPlugin(),
       new TerserPlugin()
     ],
-    minimize: true,
-    splitChunks: {
-      chunks: "all",
-      minSize: 80000,
-      automaticNameDelimiter: "~",
-      cacheGroups: {
-        moment: {
-          test: /[\\/]node_modules[\\/]moment/,
-          priority: -1,
-          reuseExistingChunk: true
-        },
-        mode_modules: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -2,
-          reuseExistingChunk: true
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true
-        }
-      }
-    }
+    minimize: true
+    // splitChunks: {
+    //   chunks: "all",
+    //   minSize: 80000,
+    //   automaticNameDelimiter: "~",
+    //   cacheGroups: {
+    //     moment: {
+    //       test: /[\\/]node_modules[\\/]moment/,
+    //       priority: -1,
+    //       reuseExistingChunk: true
+    //     },
+    //     mode_modules: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       priority: -2,
+    //       reuseExistingChunk: true
+    //     },
+    //     default: {
+    //       minChunks: 2,
+    //       priority: -20,
+    //       reuseExistingChunk: true
+    //     }
+    //   }
+    // }
   },
   devtool: "eval-cheap-module-source-map", // source map
   plugins: [
@@ -65,6 +66,14 @@ module.exports = {
       contextRegExp: /moment$/
     }),
     new MyPlugin({ param: "user input params" })
+    // new CompressionWebpackPlugin({
+    //   algorithm: "gzip", // 使用gzip压缩
+    //   test: /\.js$|\.css$/, // 匹配文件名
+    //   filename: "[name].js.gz[query]", // 压缩后的文件名(保持原文件名，后缀加.gz)
+    //   minRatio: 10, // 压缩率小于1才会压缩
+    //   threshold: 10, // 对超过10k的数据压缩
+    //   deleteOriginalAssets: false // 是否删除未压缩的源文件，谨慎设置，如果希望提供非gzip的资源，可不设置或者设置为false（比如删除打包后的gz后还可以加载到原始资源文件）
+    // })
   ],
 
   module: {
